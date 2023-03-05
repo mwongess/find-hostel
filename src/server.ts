@@ -1,9 +1,8 @@
 import fastify from "fastify";
+import { RouteHandlerMethod } from "fastify";
+import { pool } from "./config/mysqlconfig";
 
 const app = fastify({ logger: true });
-
-import { RouteHandlerMethod } from "fastify";
-import { pool } from "./mysqlconfig";
 
 const getUsers: RouteHandlerMethod = async (request, reply) => {
   try {
@@ -11,7 +10,7 @@ const getUsers: RouteHandlerMethod = async (request, reply) => {
     reply.send(rows);
   } catch (error) {
     console.error(error);
-    reply.status(500).send("Error retrieving users");
+    reply.status(500).send("Error retrieving hostels");
   }
 };
 
