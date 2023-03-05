@@ -1,0 +1,20 @@
+{
+    "hostels": [
+        {
+            "id": 1,
+            "name": "Cozy Palace"
+        },
+        {
+            "id": 2,
+            "name": "Tara Court"
+        },
+        {
+            "id": 3,
+            "name": "Graceland"
+        },
+        {
+            "id": 4,
+            "name": "Beam"
+        }
+    ]
+}

@@ -1,19 +1,30 @@
 import fastify from "fastify";
-import { request } from "http";
 
-const app = fastify({logger: true})
+const app = fastify({ logger: true });
 
-app.get('/', async(request, reply)=>{
-    return{message: 'Yay!'}
-})
+import { RouteHandlerMethod } from "fastify";
+import { pool } from "./mysqlconfig";
 
-const start = async() =>{
-    try {
-        await app.listen(3000)
-        console.log('Server up and running')
-    } catch (error) {
-        console.error(error)
-        process.exit(1)
-    }
-}
-start()
+const getUsers: RouteHandlerMethod = async (request, reply) => {
+  try {
+    const [rows] = await pool.query("SELECT * FROM hostels");
+    reply.send(rows);
+  } catch (error) {
+    console.error(error);
+    reply.status(500).send("Error retrieving users");
+  }
+};
+
+app.get("/users", getUsers);
+
+const PORT = 3000;
+const start = async () => {
+  try {
+    await app.listen(PORT);
+    console.log("Server up and running");
+  } catch (error) {
+    console.error(error);
+    process.exit(1);
+  }
+};
+start();
